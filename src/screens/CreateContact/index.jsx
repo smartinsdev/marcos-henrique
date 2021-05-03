@@ -8,6 +8,7 @@ import {
   ScrollView,
   Platform,
   Button,
+  Alert,
 } from "react-native";
 import { globalCss } from "../../css";
 import { useContact } from "../../contexts/contact";
@@ -36,6 +37,13 @@ const CreateContact = () => {
   }, []);
 
   const saveContact = () => {
+    if (!name | !phone) {
+      Alert.alert(
+        "Alerta",
+        "Nome ou Numero de telefone precisa ser preenchido"
+      );
+      return;
+    }
     setId(id + 1);
     setContact((currentState) => [...currentState, { id, name, phone, image }]);
   };
