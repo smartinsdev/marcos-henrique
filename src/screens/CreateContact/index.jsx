@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { globalCss } from "../../css";
-import { setContact } from "../../contexts/contact";
+import { useContact } from "../../contexts/contact";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -19,6 +19,7 @@ const CreateContact = () => {
   const [phone, setPhone] = useState("");
   const [image, setImage] = useState(null);
   const [id, setId] = useState(0);
+  const { setContact } = useContact()
 
   useEffect(() => {
     (async () => {
