@@ -8,6 +8,7 @@ import {
   ScrollView,
   Platform,
   Alert,
+  Image,
 } from "react-native";
 import { globalCss } from "../../css";
 import { useContact } from "../../contexts/contact";
@@ -19,7 +20,7 @@ const CreateContact = () => {
   const [phone, setPhone] = useState("");
   const [image, setImage] = useState(null);
   const [id, setId] = useState(0);
-  const { setContact } = useContact()
+  const { setContact } = useContact();
 
   useEffect(() => {
     (async () => {
@@ -44,6 +45,9 @@ const CreateContact = () => {
     }
     setId(id + 1);
     setContact((currentState) => [...currentState, { id, name, phone, image }]);
+    setName("");
+    setPhone("");
+    setImage(null);
   };
 
   const pickImage = async () => {
@@ -61,11 +65,22 @@ const CreateContact = () => {
   return (
     <View style={globalCss.container}>
       <ScrollView style={{ width: "100%" }}>
-        <TouchableOpacity onPress={pickImage}>
-          <View style={styles.containerImage}>
-            <Ionicons name="add-outline" size={32} />
-          </View>
-        </TouchableOpacity>
+        {image ? (
+          <TouchableOpacity onPress={pickImage}>
+            <View style={styles.containerImage}>
+              <Image
+                source={{ uri: image }}
+                style={{ width: 100, height: 100, borderRadius: 50 }}
+              />
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={pickImage}>
+            <View style={styles.containerImage}>
+              <Ionicons name="add-outline" size={32} />
+            </View>
+          </TouchableOpacity>
+        )}
         <Text style={{ alignSelf: "center" }}>Adicionar uma foto</Text>
         <TextInput
           style={globalCss.input}

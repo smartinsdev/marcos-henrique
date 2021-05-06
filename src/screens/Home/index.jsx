@@ -14,6 +14,7 @@ const Home = () => {
   const { contact, setContact } = useContact();
 
   const handleRemoveItem = (id) => {
+    console.log(id);
     setContact(contact.slice().filter((item) => item.id !== id));
   };
 
